@@ -1,3 +1,5 @@
+// utils/permissions.js
+
 export const PERMISSION_BITS = {
     MANAGE_USERS: 1,      // 用戶管理
     MANAGE_PRODUCTS: 2,   // 商品管理
@@ -10,41 +12,37 @@ export const PERMISSION_BITS = {
 
 export const MODULE_PERMISSIONS = {
     '1': {
-        // 改為: VIEW_DASHBOARD + ACTIVATE_ACCOUNTS
-        module: PERMISSION_BITS.VIEW_DASHBOARD | PERMISSION_BITS.ACTIVATE_ACCOUNTS,  // 32 + 16 = 48
+        module: '32 | 16',  // VIEW_DASHBOARD | ACTIVATE_ACCOUNTS
         items: {
-            '1-1': 127,   // 權限設定(僅超級管理員)
-            '1-2': 127,   // 角色管理(僅超級管理員)
-            '1-3': 127 | 126    // 帳號啟用(超級管理員 + 授權管理員)
+            '1-1': '127',   // 僅超級管理員
+            '1-2': '127',   // 僅超級管理員
+            '1-3': '126 | 42 | 34 | 36 | 96'  // 授權管理員、一般管理員、庫存管理員、訂單管理員、配送管理員
         }
     },
     '2': {
-        // 改為: VIEW_DASHBOARD + MANAGE_PRODUCTS
-        module: PERMISSION_BITS.VIEW_DASHBOARD | PERMISSION_BITS.MANAGE_PRODUCTS,  // 32 + 2 = 34
+        module: '32 | 2',  // VIEW_DASHBOARD | MANAGE_PRODUCTS
         items: {
-            '2-1': 127 | 34 | 126,  // 新增商品(超級管理員 + 庫存管理員)
-            '2-2': 127 | 42 | 126,  // 商品上架/下架(超級管理員 + 一般管理員)
-            '2-3': 127 | 34 | 126,  // 庫存管理(超級管理員 + 庫存管理員)
-            '2-4': 127 | 34 | 126   // 分類管理(超級管理員 + 庫存管理員)
+            '2-1': '34',  // 庫存管理員
+            '2-2': '42',  // 一般管理員
+            '2-3': '34',  // 庫存管理員
+            '2-4': '34'   // 庫存管理員
         }
     },
     '3': {
-        // 改為: VIEW_DASHBOARD + MANAGE_ORDERS + MANAGE_DELIVERY
-        module: PERMISSION_BITS.VIEW_DASHBOARD | PERMISSION_BITS.MANAGE_ORDERS | PERMISSION_BITS.MANAGE_DELIVERY,  // 32 + 4 + 64 = 100
+        module: '32 | 4 | 64',  // VIEW_DASHBOARD | MANAGE_ORDERS | MANAGE_DELIVERY
         items: {
-            '3-1': 127 | 36 | 126,  // 訂單處理(超級管理員 + 訂單管理員)
-            '3-2': 127 | 96 | 126,  // 送貨管理(超級管理員 + 配送管理員)
-            '3-3': 127 | 36 | 126   // 退換貨管理(超級管理員 + 訂單管理員)
+            '3-1': '36',  // 訂單管理員
+            '3-2': '96',  // 配送管理員
+            '3-3': '36'   // 訂單管理員
         }
     },
     '4': {
-        // 改為: VIEW_DASHBOARD + MANAGE_PROMOTIONS
-        module: PERMISSION_BITS.VIEW_DASHBOARD | PERMISSION_BITS.MANAGE_PROMOTIONS,  // 32 + 8 = 40
+        module: '32 | 8',  // VIEW_DASHBOARD | MANAGE_PROMOTIONS
         items: {
-            '4-1': 127 | 8 | 126,   // 新增促銷活動(超級管理員 + 促銷管理)
-            '4-2': 127 | 8 | 126,   // 編輯促銷活動(超級管理員 + 促銷管理)
-            '4-3': 127 | 40 | 126,  // 查看促銷活動(超級管理員 + 一般管理員)
-            '4-4': 127 | 40 | 126   // 首頁推送清單(超級管理員 + 一般管理員)
+            '4-1': '42',  // 一般管理員
+            '4-2': '42',  // 一般管理員
+            '4-3': '42',  // 一般管理員
+            '4-4': '42'   // 一般管理員
         }
     }
 }
@@ -67,11 +65,20 @@ export const ROLE_PERMISSIONS = {
     [ROLES.MANAGE_GENERAL_ADMIN]: 126 // 64+32+2+4+8+16 除權限設定和角色管理外的所有功能
 }
 
-export const hasPermission = (userPermissions, requiredPermission) => {
-    return (userPermissions & requiredPermission) === requiredPermission;
+export const hasPermission = (userPermissions, requiredPermissions) => {
+    // 超級管理員特判
+    if (userPermissions === 127) return true;
+
+    // 轉換為數字陣列
+    const permissionArray = String(requiredPermissions).split('|').map(p => parseInt(p.trim()));
+
+    // 檢查用戶是否擁有任一所需權限
+    return permissionArray.some(permission =>
+        (userPermissions & permission) === permission
+    );
 }
 
-// 添加 store 配置
+// store 配置
 export const authStore = {
     state: {
         permissions: 0,

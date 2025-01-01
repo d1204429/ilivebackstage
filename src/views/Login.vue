@@ -106,7 +106,7 @@ const handleLogin = async () => {
   } catch (error) {
     console.error('登入錯誤:', error)
     ElMessage.closeAll()
-    ElMessage.error('帳號未啟用或已被停用')
+    ElMessage.error('登入錯誤 請確認帳號密碼輸入正確')
   } finally {
     loading.value = false
   }

@@ -7,7 +7,7 @@
     </div>
     <el-card class="register-card">
       <div class="register-title">
-        <h2>註冊帳號</h2>
+        <h2>註冊後台帳號</h2>
       </div>
 
       <el-form

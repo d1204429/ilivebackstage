@@ -24,13 +24,31 @@ const routes = [
             {
                 path: '/home',
                 name: 'Home',
-                component: () => import('./views/Home.vue')  // 新的首頁組件
+                component: () => import('./views/Home.vue')
+            },
+            { 
+                path: '/account-manager', 
+                name: 'AccountManager', 
+                component: () => import('./views/AccountManager.vue') 
+            },
+            {
+                path: '/adminroles',
+                name: 'AdminRoles',
+                component: () => import('./views/AdminRoles.vue')
+            },
+            {
+                path: '/categories',
+                name: 'Categories',
+                component: () => import('./views/Categories.vue')
+            },
+            {
+                path: '/product',
+                name: 'Product',
+                component: () => import('./views/Product.vue')
             },
             // 其他子路由...
         ]
     }
-
-
 ]
 
 const router = createRouter({

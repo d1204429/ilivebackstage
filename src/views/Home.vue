@@ -8,8 +8,9 @@
           <h3>管理者權限</h3>
           <transition name="slide-fade">
             <el-menu class="module-menu" v-show="activeModule === '1'"
-                     :default-active="activeMenuItem" @select="handleSelect">
-              <el-menu-item v-if="checkItemPermission('1', '1-1')" index="1-1">權限設定</el-menu-item>
+                     :default-active="activeMenuItem" @select="handleSelect"
+                     router= true >
+              <el-menu-item v-if="checkItemPermission('1', '1-1')" index="1-1" route= "/account-manager">權限設定</el-menu-item>
               <el-menu-item v-if="checkItemPermission('1', '1-2')" index="1-2">角色管理</el-menu-item>
               <el-menu-item v-if="checkItemPermission('1', '1-3')" index="1-3">帳號啟用</el-menu-item>
             </el-menu>

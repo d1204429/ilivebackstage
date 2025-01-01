@@ -24,13 +24,16 @@ const routes = [
             {
                 path: '/home',
                 name: 'Home',
-                component: () => import('./views/Home.vue')  // 新的首頁組件
+                component: () => import('./views/Home.vue')
             },
+            { 
+                path: '/account-manager', 
+                name: 'AccountManager', 
+                component: () => import('./views/AccountManager.vue') 
+            }
             // 其他子路由...
         ]
     }
-
-
 ]
 
 const router = createRouter({

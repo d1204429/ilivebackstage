@@ -12,7 +12,7 @@
                      router= true >
               <el-menu-item v-if="checkItemPermission('1', '1-3')" index="1-3" route= "/account-manager">帳號啟用</el-menu-item>
               <el-menu-item v-if="checkItemPermission('1', '1-2')" index="1-2" route= "/adminroles">角色管理</el-menu-item>
-              <el-menu-item v-if="checkItemPermission('1', '1-1')" index="1-1">營業額查詢</el-menu-item>
+              <el-menu-item v-if="checkItemPermission('1', '1-1')" index="1-1" route= "/revenue">營業額查詢</el-menu-item>
 
             </el-menu>
           </transition>
@@ -31,7 +31,7 @@
               <el-menu-item v-if="checkItemPermission('2', '2-1')" index="2-1" route="/categories">商品分類管理</el-menu-item>
 <!--              <el-menu-item v-if="checkItemPermission('2', '2-2')" index="2-2">商品上架/下架</el-menu-item>-->
               <el-menu-item v-if="checkItemPermission('2', '2-3')" index="2-3" route="/product">商品基本管理</el-menu-item>
-              <el-menu-item v-if="checkItemPermission('2', '2-4')" index="2-4">庫存管理</el-menu-item>
+              <el-menu-item v-if="checkItemPermission('2', '2-4')" index="2-4" route="/stock">庫存管理</el-menu-item>
             </el-menu>
           </transition>
         </div>
@@ -41,14 +41,14 @@
       <div v-if="checkModulePermission('3')" class="module-section">
         <div class="module-card" :class="{ 'active': activeModule === '3' }" @click="toggleModule('3')">
           <el-icon size="80" color="#FFA500"><Document /></el-icon>
-          <h3>訂單管理</h3>
+          <h3>訂單/會員管理</h3>
           <transition name="slide-fade">
             <el-menu class="module-menu" v-show="activeModule === '3'"
                      :default-active="activeMenuItem" @select="handleSelect"
                      router= true >
-              <el-menu-item v-if="checkItemPermission('3', '3-1')" index="3-1">訂單處理</el-menu-item>
-              <el-menu-item v-if="checkItemPermission('3', '3-2')" index="3-2">送貨管理</el-menu-item>
-              <el-menu-item v-if="checkItemPermission('3', '3-3')" index="3-3">退貨管理</el-menu-item>
+              <el-menu-item v-if="checkItemPermission('3', '3-1')" index="3-1" route="/order">訂單基本管理</el-menu-item>
+              <el-menu-item v-if="checkItemPermission('3', '3-2')" index="3-2" route="/deliver">送貨管理</el-menu-item>
+              <el-menu-item v-if="checkItemPermission('3', '3-3')" index="3-3" route="/user">會員基本管理</el-menu-item>
             </el-menu>
           </transition>
         </div>
@@ -58,15 +58,15 @@
       <div v-if="checkModulePermission('4')" class="module-section">
         <div class="module-card" :class="{ 'active': activeModule === '4' }" @click="toggleModule('4')">
           <el-icon size="80" color="#FF6B6B"><ShoppingBag /></el-icon>
-          <h3>促銷活動管理</h3>
+          <h3>活動管理</h3>
           <transition name="slide-fade">
             <el-menu class="module-menu" v-show="activeModule === '4'"
                      :default-active="activeMenuItem" @select="handleSelect"
                      router= true >
-              <el-menu-item v-if="checkItemPermission('4', '4-1')" index="4-1">新增促銷活動</el-menu-item>
-              <el-menu-item v-if="checkItemPermission('4', '4-2')" index="4-2">編輯促銷活動</el-menu-item>
-              <el-menu-item v-if="checkItemPermission('4', '4-3')" index="4-3">查看促銷活動</el-menu-item>
-              <el-menu-item v-if="checkItemPermission('4', '4-4')" index="4-4">首頁推送清單</el-menu-item>
+              <el-menu-item v-if="checkItemPermission('4', '4-1')" index="4-1" route="/promotion">活動基本管理</el-menu-item>
+              <el-menu-item v-if="checkItemPermission('4', '4-2')" index="4-2" route="/recommend">首頁推送清單</el-menu-item>
+<!--              <el-menu-item v-if="checkItemPermission('4', '4-3')" index="4-3">查看促銷活動</el-menu-item>-->
+<!--              <el-menu-item v-if="checkItemPermission('4', '4-4')" index="4-4">首頁推送清單</el-menu-item>-->
             </el-menu>
           </transition>
         </div>

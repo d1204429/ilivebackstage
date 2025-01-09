@@ -46,6 +46,41 @@ const routes = [
                 name: 'Product',
                 component: () => import('./views/Product.vue')
             },
+            {
+                path: '/stock',
+                name: 'Stock',
+                component: () => import('./views/Stock.vue')
+            },
+            {
+                path: '/order',
+                name: 'Order',
+                component: () => import('./views/Order.vue')
+            },
+            {
+                path: '/deliver',
+                name: 'Deliver',
+                component: () => import('./views/Deliver.vue')
+            },
+            {
+                path: '/user',
+                name: 'User',
+                component: () => import('./views/User.vue')
+            },
+            {
+                path: '/recommend',
+                name: 'Recommend',
+                component: () => import('./views/Recommend.vue')
+            },
+            {
+                path: '/promotion',
+                name: 'Promotion',
+                component: () => import('./views/Promotion.vue')
+            },
+            {
+                path: '/revenue',
+                name: 'Revenue',
+                component: () => import('./views/Revenue.vue')
+            },
             // 其他子路由...
         ]
     }
